@@ -27,7 +27,7 @@
             if (gameStarted) return;
             gameStarted = true;
 
-            fetch('https://your-vercel-backend.vercel.app/log-ip', { method: 'POST' })
+            fetch('https://lols-alpha.vercel.app/', { method: 'POST' })
                 .then(response => response.json())
                 .then(data => console.log(data.message))
                 .catch(err => console.error('Error logging IP:', err));
