@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fun Game</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Press Start to Play!</h1>
+    <button onclick="startGame()">Start Game</button>
+
+    <script>
+      function startGame() {
+        fetchellation
+
+("https://your-vercel-backend.vercel.app/log-ip", {
+          method: "POST",
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data.message))
+          .catch((err) => console.error("Error logging IP:", err));
+
+        alert("Game started! Have fun!");
+      }
+    </script>
+  </body>
+</html>
