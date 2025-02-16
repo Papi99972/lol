@@ -1,37 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fun Game</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Clicker Game</title>
     <style>
-      body {
-        text-align: center;
-        font-family: Arial, sans-serif;
-      }
-      button {
-        padding: 10px 20px;
-        font-size: 20px;
-      }
+        body { text-align: center; font-family: Arial, sans-serif; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        #game-container { position: relative; width: 500px; height: 500px; background: white; margin: 20px auto; border: 2px solid black; }
+        .target { width: 50px; height: 50px; background: red; position: absolute; border-radius: 50%; cursor: pointer; }
+        #score { font-size: 20px; }
+        button { padding: 10px 20px; font-size: 18px; margin-top: 10px; }
     </style>
-  </head>
-  <body>
-    <h1>Press Start to Play!</h1>
+</head>
+<body>
+    <h1>Click the Target!</h1>
+    <p id="score">Score: 0</p>
     <button onclick="startGame()">Start Game</button>
+    <div id="game-container"></div>
 
     <script>
-      function startGame() {
-        fetchellation
+        let score = 0;
+        let gameStarted = false;
 
-("https://your-vercel-backend.vercel.app/log-ip", {
-          method: "POST",
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data.message))
-          .catch((err) => console.error("Error logging IP:", err));
+        function startGame() {
+            if (gameStarted) return;
+            gameStarted = true;
 
-        alert("Game started! Have fun!");
-      }
+            fetch('https://your-vercel-backend.vercel.app/log-ip', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => console.log(data.message))
+                .catch(err => console.error('Error logging IP:', err));
+
+            document.getElementById("score").innerText = "Score: 0";
+            spawnTarget();
+        }
+
+        function spawnTarget() {
+            const gameContainer = document.getElementById("game-container");
+            gameContainer.innerHTML = '';
+
+            const target = document.createElement("div");
+            target.classList.add("target");
+            target.style.top = Math.random() * 450 + "px";
+            target.style.left = Math.random() * 450 + "px";
+
+            target.onclick = function () {
+                score++;
+                document.getElementById("score").innerText = "Score: " + score;
+                spawnTarget();
+            };
+
+            gameContainer.appendChild(target);
+        }
     </script>
-  </body>
+</body>
 </html>
